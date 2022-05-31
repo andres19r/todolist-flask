@@ -1,0 +1,14 @@
+<html>
+  <head>
+    {% if title %}
+    <title>{{ title }} - TodoList</title>
+    {% else %}
+    <title>Welcome to your Todo List</title>
+    {% endif %}
+  </head>
+  <body>
+    <div>TodoList: <a href="{{ url_for('index') }}">Home</a></div>
+    <hr>
+    {% block content %}{% endblock %}
+  </body>
+</html>
