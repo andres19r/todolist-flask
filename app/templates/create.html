@@ -6,7 +6,10 @@
   {{ form.hidden_tag() }}
   <p>
   {{ form.task.label }} <br>
-  {{ form.task(size=32) }}
+  {{ form.task(size=32) }} <br>
+  {% for error in form.task.errors %}
+  <span style="color: red;">[{{ error }}]</span>
+  {% endfor %}
   </p>
   <p>
   {{ form.description.label }} <br>
