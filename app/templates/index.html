@@ -4,11 +4,22 @@
 <h1>Welcome to your To-Do List</h1>
 {% for task in tasks %}
 <div>
-  <p><b>{{ task.name }}</b></p>
+  <p><b>* {{ task.name }}</b></p>
   {% if task.description %}
   <p>{{ task.description }}</p>
   {% endif %}
   <p>Created: {{ task.created }}</p>
+  {% if not task.status %}
+  <p>
+  <form action="{{ url_for('complete', task=task.name) }}" method="post">
+      {{ form.hidden_tag() }}
+      {{ form.submit(value='Complete') }}
+  </form>
+  </p>
+  {% else %}
+  <p>Completed: {{ task.completed }}</p>
+  {% endif %}
+  <p>Status: <b>{% if task.status %}Done{% else %}Pendant{% endif %}</b></p>
 </div>
 {% endfor %}
 {% endblock %}
