@@ -6,7 +6,8 @@ from app.models import Task
 
 @app.route('/')
 def index():
-    tasks = Task.query.all()
+    tasks = Task.query.filter_by(status=False) \
+            .order_by(Task.created.desc()).all()
     form = EmptyForm()
     return render_template('index.html', tasks=tasks, form=form)
 
@@ -35,3 +36,9 @@ def complete(task):
         return redirect(url_for('index'))
     else:
         return redirect(url_for('index'))
+
+@app.route('/completed_tasks')
+def completed_tasks():
+    tasks = Task.query.filter_by(status=True) \
+            .order_by(Task.completed.desc()).all()
+    return render_template('index.html', tasks=tasks)
